@@ -1,7 +1,8 @@
 export default class Tank {
   constructor(gameWidth, gameHeight, tankType) {
-    this.x = 150;
-    this.y = 150;
+    this.type = "tank";
+    this.x = 0;
+    this.y = 0;
     this.width = 40;
     this.length = 90;
     this.towerWidth = 30;
@@ -24,10 +25,16 @@ export default class Tank {
   }
 
   draw(ctx) {
+    let center = {
+      x: this.x,
+      y: this.y
+    };
+    let x = this.x - this.width / 2;
+    let y = this.y - this.length / 2;
     // Adjust for angle
     var transPos = {
-      x: this.x + this.width / 2,
-      y: this.y + this.length / 2
+      x: x + this.width / 2,
+      y: y + this.length / 2
     };
     ctx.translate(transPos.x, transPos.y);
 
@@ -38,8 +45,8 @@ export default class Tank {
     // vehicle
     ctx.fillStyle = "#996600"; //"#999966";
     ctx.fillRect(
-      this.x, // - this.width / 2,
-      this.y, // - this.length / 2,
+      x, // - this.width / 2,
+      y, // - this.length / 2,
       this.width,
       this.length
     );
@@ -47,8 +54,8 @@ export default class Tank {
     // tower
     ctx.fillStyle = "#7a7a52";
     ctx.fillRect(
-      this.x + this.width / 2 - this.towerWidth / 2,
-      this.y + this.length / 2 - this.towerLength / 2,
+      x + this.width / 2 - this.towerWidth / 2,
+      y + this.length / 2 - this.towerLength / 2,
       this.towerWidth,
       this.towerLength
     );
@@ -56,8 +63,8 @@ export default class Tank {
     // barrel
     ctx.fillStyle = "#4d4d33";
     ctx.fillRect(
-      this.x + this.width / 2 - this.barrelWidth / 2,
-      this.y + this.length - this.towerLength / 2,
+      x + this.width / 2 - this.barrelWidth / 2,
+      y + this.length - this.towerLength / 2,
       this.barrelWidth,
       this.barrelLength
     );
@@ -65,7 +72,7 @@ export default class Tank {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     // point
     ctx.fillStyle = "#ff0000"; //"#999966";
-    ctx.fillRect(this.x, this.y, 3, 3);
+    ctx.fillRect(center.x, center.y, 3, 3);
   }
 
   updatePostion(deltaTime) {

@@ -33,6 +33,7 @@ let tank1 = new Tank(GAME_WIDTH, GAME_HEIGHT, 1);
 tank1.draw(ctx);
 
 let map = new Map(GAME_WIDTH, GAME_HEIGHT);
+map.addMovingObject(tank1, 150, 150);
 
 new InputHandler(tank1);
 
@@ -50,7 +51,7 @@ function gameLoop(timestamp) {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   tank1.updatePostion(deltaTime);
 
-  let collision = map.collitionDetect(tank1.x, tank1.y);
+  map.collitionDetect();
   map.drawMap(ctx);
   tank1.draw(ctx);
 
@@ -62,8 +63,8 @@ function gameLoop(timestamp) {
   appendInfo("Tank speed R: " + tank1.relativeSpeed);
   appendInfo("Tank speed X: " + tank1.speedX);
   appendInfo("Tank speed Y: " + tank1.speedY);
-  appendInfo("Objects: " + map.objects.length);
-  appendInfo("Collision: " + collision);
+  appendInfo("Map objects: " + map.elements.length);
+  appendInfo("Collision: " + map.lastCollisionIdx);
 
   requestAnimationFrame(gameLoop);
 }
