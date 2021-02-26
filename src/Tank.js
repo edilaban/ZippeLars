@@ -1,44 +1,54 @@
 export default class Tank {
   constructor(gameWidth, gameHeight, tankType) {
+    this.x = 150;
+    this.y = 150;
     this.width = 40;
     this.length = 90;
     this.towerWidth = 30;
     this.towerLength = 50;
     this.barrelWidth = 8;
     this.barrelLength = 40;
-    this.maxSpeed = 5;
+    this.maxSpeed = 10;
     this.relativeSpeed = 0;
     this.speedX = 0;
     this.speedY = 0;
     this.speedInc = 25;
     this.tankHeading = 0;
 
+    /*
     this.position = {
       x: 200 * tankType, //gameWidth / 2 - this.widht / 2,
       y: 100 //gameHeight - this.length - 40
     };
+    */
   }
 
   draw(ctx) {
     // Adjust for angle
     var transPos = {
-      x: this.position.x + this.width / 2,
-      y: this.position.y + this.length / 2
+      x: this.x + this.width / 2,
+      y: this.y + this.length / 2
     };
     ctx.translate(transPos.x, transPos.y);
 
     // Rotated rectangle
     ctx.rotate((this.tankHeading * Math.PI) / 180);
     ctx.translate(-transPos.x, -transPos.y);
+
     // vehicle
     ctx.fillStyle = "#996600"; //"#999966";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.length);
+    ctx.fillRect(
+      this.x, // - this.width / 2,
+      this.y, // - this.length / 2,
+      this.width,
+      this.length
+    );
 
     // tower
     ctx.fillStyle = "#7a7a52";
     ctx.fillRect(
-      this.position.x + this.width / 2 - this.towerWidth / 2,
-      this.position.y + this.length / 2 - this.towerLength / 2,
+      this.x + this.width / 2 - this.towerWidth / 2,
+      this.y + this.length / 2 - this.towerLength / 2,
       this.towerWidth,
       this.towerLength
     );
@@ -46,8 +56,8 @@ export default class Tank {
     // barrel
     ctx.fillStyle = "#4d4d33";
     ctx.fillRect(
-      this.position.x + this.width / 2 - this.barrelWidth / 2,
-      this.position.y + this.length - this.towerLength / 2,
+      this.x + this.width / 2 - this.barrelWidth / 2,
+      this.y + this.length - this.towerLength / 2,
       this.barrelWidth,
       this.barrelLength
     );
@@ -55,7 +65,7 @@ export default class Tank {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     // point
     ctx.fillStyle = "#ff0000"; //"#999966";
-    ctx.fillRect(this.position.x, this.position.y, 3, 3);
+    ctx.fillRect(this.x, this.y, 3, 3);
   }
 
   updatePostion(deltaTime) {
@@ -71,8 +81,8 @@ export default class Tank {
     this.speedY =
       this.relativeSpeed * Math.cos((Math.PI * 2 * this.tankHeading) / 360);
 
-    this.position.x += this.speedX / deltaTime;
-    this.position.y += this.speedY / deltaTime;
+    this.x += this.speedX / deltaTime;
+    this.y += this.speedY / deltaTime;
   }
 
   changeSpeed(inc) {

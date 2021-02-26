@@ -50,15 +50,15 @@ function gameLoop(timestamp) {
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   tank1.updatePostion(deltaTime);
 
-  let collision = map.collitionDetect(tank1.position.x, tank1.position.y);
+  let collision = map.collitionDetect(tank1.x, tank1.y);
   map.drawMap(ctx);
   tank1.draw(ctx);
 
   // Tank Info
   infoTextCount = 0;
   appendInfo("Tank angle: " + tank1.tankHeading);
-  appendInfo("Tank pos X: " + tank1.position.x);
-  appendInfo("Tank pos Y: " + tank1.position.y);
+  appendInfo("Tank pos X: " + tank1.x);
+  appendInfo("Tank pos Y: " + tank1.y);
   appendInfo("Tank speed R: " + tank1.relativeSpeed);
   appendInfo("Tank speed X: " + tank1.speedX);
   appendInfo("Tank speed Y: " + tank1.speedY);
